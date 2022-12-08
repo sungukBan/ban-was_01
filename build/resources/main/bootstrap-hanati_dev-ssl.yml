@@ -1,0 +1,29 @@
+server:
+  port: 24001
+  ssl:
+    enabled: true
+    key-store: /etc/ssl/certs/java/a934.p12
+    key-store-password: openapi
+    key-alias: a934-store
+spring:
+  profiles: hanati_dev-ssl
+  redis:
+    host: 192.168.202.3
+    port: 6379
+  datasource:
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb:failover://192.168.202.15:3306/oauth?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true&useSSL=false
+    username: openapi
+    password: Gksk12#$
+    dbcp2:
+      initial-size: 20
+      max-total: 200
+      pool-prepared-statements : true   
+eureka:
+  instance:
+    securePort: ${server.port}
+    securePortEnabled: true
+    nonSecurePortEnabled: false
+  client:
+    serviceUrl:
+            defaultZone: http://192.168.202.7:23001/eureka/

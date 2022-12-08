@@ -1,0 +1,88 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        mavenCentral()
+        jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    ext {
+        springBootVersion = '2.1.3.RELEASE'
+        springCloudVersion = 'Greenwich.RELEASE'
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: "io.spring.dependency-management"
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = 'UTF-8'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+jar {
+    baseName = 'integration-gw'
+    version = '1.0.0-SNAPSHOT'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-freemarker')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    compile('de.codecentric:spring-boot-admin-starter-client:2.1.3')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.cloud:spring-cloud-starter-openfeign')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.cloud:spring-cloud-starter-sleuth')
+    compile('org.springframework.cloud:spring-cloud-starter-zipkin')
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1')
+
+    // https://mvnrepository.com/artifact/com.oracle/ojdbc6
+    // implementation group: 'com.oracle', name: 'ojdbc6', version: '11.2.0.4.0-atlassian-hosted'
+    // compile('org.mariadb.jdbc:mariadb-java-client')
+
+    compile('mysql:mysql-connector-java')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    //compile('org.springframework.security.oauth:spring-security-oauth2:2.3.5.RELEASE')
+    compile('org.springframework.security.oauth:spring-security-oauth2:2.3.2.RELEASE')
+    compile('io.springfox:springfox-swagger2:2.7.0')
+    compile('org.apache.commons:commons-pool2')
+    compile('org.apache.commons:commons-collections4:4.2')
+    compile('org.apache.commons:commons-dbcp2:2.0')
+    compile ('org.codehaus.jettison:jettison:1.4.0')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile('org.springframework.security:spring-security-jwt:1.0.11.RELEASE')
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    compile('com.github.danielwegener:logback-kafka-appender:0.2.0-RC2')
+    compile('org.codehaus.janino:janino:3.0.10')
+
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+}
+
+test {
+    useJUnitPlatform()
+}

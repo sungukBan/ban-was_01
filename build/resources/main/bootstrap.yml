@@ -1,0 +1,80 @@
+server:
+  port: 24001
+#  ssl:
+#    enabled: true
+#    key-store: /etc/ssl/certs/java/a934.p12
+#    key-store-password: openapi
+#    key-alias: a934-store
+  tomcat:
+    max-threads: 100000
+  kafka:
+    bootstrap:
+      servers: 172.16.11.185:9092
+    security:
+      use: n
+spring:
+  application:
+    name: oauth
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/oauth?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true&useSSL=false
+    username: ban
+    password: qkstjddnr!
+    hikari:
+      connection-timeout: 10000
+      minimum-idle: 5
+      maximum-pool-size: 50
+      idleTimeout: 15000
+      max-lifetime: 60000
+
+eureka:
+  instance:
+#    securePort: ${server.port}
+#    securePortEnabled: true
+#    nonSecurePortEnabled: false
+    lease-expiration-duration-in-seconds: 7
+    lease-renewal-interval-in-seconds: 5      
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://127.0.0.1:23001/eureka/
+      enabled: true         
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    restart:
+      enabled: true
+    health:
+      show-details: ALWAYS
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+
+oauth:
+  config:
+    reuseRefreshToken: true
+    reuseB2CToken: false
+    tokenExpireSecond:
+      #default: 60  # 테스트 1분#
+      default: 2592000  # 기본 30일
+      #default: 31536000  # 기본 1년
+      inquiry: 600      # 기본 10분#
+      transaction: 180  # 기본 3분#
+      oop: 3600         # 기본 1시간
+    refreshTokenExpireSecond: 31536000  #1년
+    #refreshTokenExpireSecond: 120  #1년
+
+logging:
+  path: D:/logs
+  
+  
