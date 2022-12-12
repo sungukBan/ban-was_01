@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.was.mapper.BanWasMapper">
+
+	<!-- 사용자 조회 -->
+	<select id="selectHanaUsers" resultType="PaySendVo" parameterType="PaySendVo">
+		select ci
+			 , uuid
+			 , affiliate_code
+			 , reg_date
+			 , mod_date
+		from oauth_users
+		where ci = #{ci}
+		and uuid = #{uuid}
+		and affiliate_code = #{affiliateCode}
+	</select>
+
+	<insert id="insertHanaUsers" parameterType="PaySendVo">
+		insert into oauth_users (
+			ci
+			, uuid
+			, affiliate_code
+		)
+		values (
+			#{ci}
+			, #{uuid}
+			, #{affiliateCode}
+		)
+	</insert>
+
+</mapper>
