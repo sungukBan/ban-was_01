@@ -14,5 +14,6 @@
     </typeAliases>
     <mappers>
         <mapper resource="mapper/BanWasMapper.xml"/>
+        <mapper resource="mapper/PersonalMapper.xml"/>
     </mappers>
 </configuration>

@@ -1,4 +1,4 @@
-package com.was.Constant;
+package com.was.constant;
 
 public class Constant {
 

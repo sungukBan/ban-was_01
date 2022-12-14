@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.was.mapper.PersonalMapper">
+
+<select id="selectOganizationByCd" parameterType="com.was.dto.PersonalAgreeDto" resultType="com.was.dto.PersonalAgreeDto">
+SELECT P2.NAME AS CORPNAME
+	 ,  P1.NAME AS APPNAME
+	 ,  P2.TYPE AS TYPE
+	 ,  P2.ID AS CORPID
+	 ,  P2.CODE AS CORPCD
+FROM TB_APP P1
+ INNER JOIN TB_ORGANIZATION P2
+	ON P1.ORGANIZATION_ID = P2.ID
+	AND P1.APP_KEY = #{clientid}
+	AND P1.RECORD_STATE != 2
+	AND P2.RECORD_STATE != 2
+</select>
+
+</mapper>
