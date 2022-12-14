@@ -9,11 +9,11 @@
     <typeAliases>
         <package name="java.lang"/>
         <package name="java.util.Map"/>
-        <package name="com.oauth.model"/>
-        <package name="com.oauth.dto"/>
+        <package name="com.was.model"/>
+        <package name="com.was.dto"/>
     </typeAliases>
     <mappers>
-        <mapper resource="mapper/HanaUsersMapper.xml"/>
-        <mapper resource="mapper/OAuthRefreshTokenMapper.xml"/>
+        <mapper resource="mapper/BanWasMapper.xml"/>
+        <mapper resource="mapper/PersonalMapper.xml"/>
     </mappers>
 </configuration>
