@@ -5,18 +5,56 @@
 
 <mapper namespace="com.was.mapper.PersonalMapper">
 
+<select id="selectMNGAgree" parameterType="com.was.dto.PersonalAgreeDto" resultType="com.was.dto.PersonalAgreeDto">
+SELECT t1.AGREE_ID as agreeId
+	 ,  t1.AGREE_VER as agreeVer
+	 ,  t1.BODY as body
+     ,  IFNULL(t2.agree_yn, 'N') AS agreeYn
+FROM portal_manage_of_agree t1
+ LEFT OUTER JOIN personal_info_agree t2
+ ON t1.AGREE_ID  = t2.AGREE_ID
+ AND t1.AGREE_VER = t2.AGREE_VER
+ AND t1.STS       = '1'
+ AND t2.CINO      = #{ciNo}
+ AND t2.AGREE_YN  = 'Y'
+</select>
+
 <select id="selectOganizationByCd" parameterType="com.was.dto.PersonalAgreeDto" resultType="com.was.dto.PersonalAgreeDto">
-SELECT P2.NAME AS CORPNAME
-	 ,  P1.NAME AS APPNAME
-	 ,  P2.TYPE AS TYPE
-	 ,  P2.ID AS CORPID
-	 ,  P2.CODE AS CORPCD
+SELECT p2.NAME AS corpname
+	 ,  p1.NAME AS appname
+	 ,  p2.TYPE AS type
+	 ,  p2.ID AS corpid
+	 ,  p2.CODE AS corpcd
 FROM TB_APP P1
  INNER JOIN TB_ORGANIZATION P2
-	ON P1.ORGANIZATION_ID = P2.ID
-	AND P1.APP_KEY = #{clientid}
-	AND P1.RECORD_STATE != 2
-	AND P2.RECORD_STATE != 2
+ON p1.ORGANIZATION_ID = p2.ID
+AND p1.APP_KEY = #{clientid}
+AND p1.RECORD_STATE != 2
+AND p2.RECORD_STATE != 2
+</select>
+
+<select id="selectAgreeOne" parameterType="com.was.dto.PersonalAgreeDto" resultType="Integer">
+SELECT COUNT(1) AS CNT
+FROM PERSONAL_INFO_AGREE
+WHERE CINO      = #{ciNo}
+  AND AGREE_ID  = #{agreeId}
+  AND AGREE_VER = #{agreeVer}
+</select>
+
+<select id="insertAgree" parameterType="com.was.dto.PersonalAgreeDto">
+INSERT INTO PERSONAL_INFO_AGREE
+(  CINO
+, AGREE_ID
+, AGREE_VER
+, AGREEDATE
+, AGREE_YN )
+VALUES
+(  #{ciNo}
+, #{agreeId}
+, #{agreeVer}
+, NOW()
+, #{agreeYn}
+)
 </select>
 
 </mapper>

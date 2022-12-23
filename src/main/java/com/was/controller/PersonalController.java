@@ -18,4 +18,9 @@ public class PersonalController {
 	public String insertAgree(HttpServletRequest request, @RequestBody String jsonStr) {
 		return personalWasService.insertAgree(request, jsonStr);
 	}
+
+	@PostMapping("/v1.0/Personal/info/selectAgree")
+	public String selectAgree(HttpServletRequest request, @RequestBody String jsonStr) {
+		return personalWasService.selectAgree(request, jsonStr);
+	}
 }

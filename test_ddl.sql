@@ -25,53 +25,107 @@ CREATE TABLE `portal_manage_of_agree` (
 PRIMARY KEY (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `oauth_code` (
-  `code` VARCHAR(255) NOT NULL,
-  `authentication` BLOB NOT NULL,
-  PRIMARY KEY (`code`)
+
+CREATE TABLE `portal_manage_of_agree` (
+`agree_id` varchar(20) NOT NULL,
+`agree_ver` varchar(20) NOT NULL,
+`body` longtext,
+`sts` char(1),
+`created_id` varchar(50),
+`created_date` datetime,
+PRIMARY KEY (`agree_id`, `agree_ver`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `oauth_users` (
-  `ci` varchar(100) NOT NULL COMMENT 'CI',
-  `uuid` varchar(100) NOT NULL COMMENT 'UUID',
-  `affiliate_code` varchar(100) NOT NULL COMMENT '관계사 코드',
-  `reg_date` datetime DEFAULT NULL COMMENT '등록 일자',
-  `mod_date` datetime DEFAULT NULL COMMENT '수정 일자',
-  PRIMARY KEY (`ci`,`uuid`,`affiliate_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
 
-CREATE TABLE `authorities` (
-  `username` varchar(50) NOT NULL,
-  `authority` varchar(50) NOT NULL,
-  PRIMARY KEY (`username`,`authority`)
+
+CREATE TABLE `personal_info_agree` (
+`cino` varchar(88) NOT NULL,
+`agree_id` varchar(20) NOT NULL,
+`agree_ver` varchar(20) NOT NULL,
+`agree_gb` varchar(20),
+`agree_yn` char(1),
+`appname` varchar(50),
+`corpcd` varchar(50),
+`corpname` varchar(50),
+`app_key` varchar(50),
+`agreedate` datetime,
+PRIMARY KEY (`cino`, `agree_id`, `agree_ver`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-create table oauth_access_token (
- `access_token_id` bigint(20) NOT NULL AUTO_INCREMENT,
- `authentication_id` varchar(256),
- `token_id` varchar(256),
- `token_value` varchar(1000),
- `user_name` varchar(256),
- `client_id` varchar(256),
- `refresh_token` varchar(256),
- `refresh_token_value` varchar(1000),
- `expire_date` datetime DEFAULT NULL COMMENT '토큰 만료 일자.',
- `reg_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '토큰 등록 일자.',
- `revoked` tinyint(1) DEFAULT 0 COMMENT 'revoke 여부. 사용 가능=0, 불가능=1',
- `revoke_date` datetime DEFAULT NULL COMMENT 'revoke된 일자',
- `refreshed` tinyint(1) DEFAULT 0 COMMENT 'refresh된 토큰 여부. 처음 생성=0, refresh된 토큰=1',
-  PRIMARY KEY (`access_token_id`)
+
+CREATE TABLE `tb_app` (
+`id`                           varchar(36)  ,
+`created_by`                   varchar(50)  ,
+`created_date`                 timestamp    ,
+`last_modified_by`             varchar(50)  ,
+`last_modified_date`           timestamp    ,
+`record_state`                 int(11)      ,
+`app_key`                      varchar(255) ,
+`correl_id`                    varchar(255) ,
+`description`                  longtext     ,
+`expiry_date`                  date         ,
+`is_test_app`                  bit(1)       ,
+`issuer`                       varchar(255) ,
+`key_secret`                   varchar(255) ,
+`name`                         varchar(255) ,
+`o_auth_callback_url`          longtext     ,
+`o_auth_scope`                 varchar(255) ,
+`o_auth_type`                  varchar(255) ,
+`platform`                     varchar(255) ,
+`serial_number`                int(11)      ,
+`status`                       varchar(255) ,
+`version`                      int(11)      ,
+`white_list`                   varchar(4000),
+`creator_id`                   varchar(36)  ,
+`image_file_id`                varchar(36)  ,
+`organization_id`              varchar(36)  ,
+`detail_status`                varchar(255) ,
+`reserved_attribute1`          varchar(255) ,
+`reserved_attribute10`         varchar(255) ,
+`reserved_attribute2`          varchar(255) ,
+`reserved_attribute3`          varchar(255) ,
+`reserved_attribute4`          varchar(255) ,
+`reserved_attribute5`          varchar(255) ,
+`reserved_attribute6`          varchar(255) ,
+`reserved_attribute7`          varchar(255) ,
+`reserved_attribute8`          varchar(255) ,
+`reserved_attribute9`          varchar(255) ,
+`access_token_life_time`       varchar(255) ,
+`refresh_token_life_time`      varchar(255) ,
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `oauth_refresh_token` (
-  `refresh_token_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `token_id` varchar(256) DEFAULT NULL,
-  `token_value` varchar(256) DEFAULT NULL,
-  `user_name` varchar(256) DEFAULT NULL,
-  `client_id` varchar(256) DEFAULT NULL,
-  `expire_date` datetime DEFAULT NULL COMMENT '토큰 만료 일자.',
-  `reg_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '토큰 등록 일자.',
-  `revoked` tinyint(1) DEFAULT 0 COMMENT 'revoke 여부. 사용 가능=0, 불가능=1',
-  `revoke_date` datetime DEFAULT NULL COMMENT 'revoke된 일자',
-  PRIMARY KEY (`refresh_token_id`)
+
+CREATE TABLE `tb_organization` (
+`id`                      varchar(36) ,
+`created_by`              varchar(50) ,
+`created_date`            timestamp   ,
+`last_modified_by`        varchar(50) ,
+`last_modified_date`      timestamp   ,
+`record_state`            int(11)     ,
+`reserved_attribute1`     varchar(255),
+`reserved_attribute10`    varchar(255),
+`reserved_attribute2`     varchar(255),
+`reserved_attribute3`     varchar(255),
+`reserved_attribute4`     varchar(255),
+`reserved_attribute5`     varchar(255),
+`reserved_attribute6`     varchar(255),
+`reserved_attribute7`     varchar(255),
+`reserved_attribute8`     varchar(255),
+`reserved_attribute9`     varchar(255),
+`address`                 varchar(255),
+`ceo_name`                varchar(255),
+`code`                    varchar(16) ,
+`corp_reg_number`         varchar(255),
+`description`             varchar(255),
+`gateway_domain_name`     varchar(128),
+`homepage_url`            varchar(255),
+`license_number`          varchar(12) ,
+`main_phone`              varchar(255),
+`name`                    varchar(50) ,
+`sectors`                 varchar(255),
+`state`                   varchar(30) ,
+`type`                    varchar(255),
+`version`                 int(11),
+PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

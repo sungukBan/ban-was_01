@@ -20,7 +20,7 @@ spring:
     port: 6379
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/oauth?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/api?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true&useSSL=false
     username: ban
     password: openapi
     hikari:

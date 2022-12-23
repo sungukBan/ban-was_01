@@ -4,12 +4,13 @@ package com.was.biz;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.was.constant.Constant;
 
 public class TEST01 {
 
 	public static void main(String[] args) {
 
-        test_biz();
+        test_biz2();
 	}
 	
     public static void test_biz() {
@@ -25,15 +26,17 @@ public class TEST01 {
 
         JsonParser jsonParser = new JsonParser();
         JsonElement element   = jsonParser.parse(jsonStr);
-
-        System.out.println(element.getAsJsonObject().get("dataBody"));
-
-        JsonObject jsonBody = (JsonObject) element.getAsJsonObject().get("dataBody");
+        JsonObject jsonBody   = (JsonObject) element.getAsJsonObject().get(Constant.DATA_BODY);
 
         System.out.println(jsonBody.toString());
+        System.out.println(jsonBody.get("ciNo"));
+        System.out.println(jsonBody.get("ciNo").getAsString());
+        System.out.println(jsonBody.get("ciNo").toString());
 
-        if ( jsonBody.getAsJsonObject("cino") == null ) {
-            // 에러발생
+        if ( jsonBody.get("ciNo1") == null ) {
+            System.out.println("널");
+        } else {
+            System.out.println("정상");
         }
 
 
@@ -43,6 +46,19 @@ public class TEST01 {
         jsonBody = element.getAsJsonObject().get("dataBody");
         */
 
+    }
+
+    public static void test_biz2() {
+        JsonObject jsonBody = new JsonObject();
+        jsonBody.addProperty("collAgreeBody", "");
+        jsonBody.addProperty("resCd", "200");
+        jsonBody.addProperty("asdsadasd", "qweqweweq");
+        // jsonBody.add(Constant.DATA_BODY, jsonBody);
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add(Constant.DATA_BODY, jsonBody);
+
+        System.out.println("jsonBody.toString() :: " + jsonObject.toString());
     }
 
 }
