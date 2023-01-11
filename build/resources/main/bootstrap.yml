@@ -1,5 +1,5 @@
 server:
-  port: 24001
+  port: 21001
 #  ssl:
 #    enabled: true
 #    key-store: /etc/ssl/certs/java/a934.p12
@@ -14,15 +14,15 @@ server:
       use: n
 spring:
   application:
-    name: oauth
+    name: ban-was_01
   redis:
     host: 127.0.0.1
     port: 6379
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/oauth?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true&useSSL=false
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/api?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true&useSSL=false
     username: ban
-    password: qkstjddnr!
+    password: openapi
     hikari:
       connection-timeout: 10000
       minimum-idle: 5
@@ -59,22 +59,3 @@ management:
 
 mybatis:
   config-location: classpath:mybatis-config.xml
-
-oauth:
-  config:
-    reuseRefreshToken: true
-    reuseB2CToken: false
-    tokenExpireSecond:
-      #default: 60  # 테스트 1분#
-      default: 2592000  # 기본 30일
-      #default: 31536000  # 기본 1년
-      inquiry: 600      # 기본 10분#
-      transaction: 180  # 기본 3분#
-      oop: 3600         # 기본 1시간
-    refreshTokenExpireSecond: 31536000  #1년
-    #refreshTokenExpireSecond: 120  #1년
-
-logging:
-  path: D:/logs
-  
-  

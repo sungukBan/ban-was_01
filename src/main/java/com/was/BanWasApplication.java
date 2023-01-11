@@ -9,5 +9,4 @@ public class BanWasApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BanWasApplication.class, args);
 	}
-	
 }
